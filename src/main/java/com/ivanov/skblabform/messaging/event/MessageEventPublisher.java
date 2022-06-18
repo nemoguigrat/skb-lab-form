@@ -14,7 +14,7 @@ public class MessageEventPublisher {
         applicationEventPublisher.publishEvent(message);
     }
 
-    public <IN, OUT> void publishHandledMessage(HandledMessage<IN, OUT> handledMessage) {
-        applicationEventPublisher.publishEvent(handledMessage);
+    public <IN, OUT> void publishProcessedMessage(ProcessedMessage<IN, OUT> processedMessage) {
+        applicationEventPublisher.publishEvent(processedMessage);
     }
 }

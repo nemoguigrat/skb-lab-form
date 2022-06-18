@@ -9,7 +9,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeoutException;
 
 @Service
@@ -29,8 +28,8 @@ public class MessageListenerImpl<T> implements MessageListener<T> {
         try {
             Message<A> receivedMessage = messagingService.doRequest(incomingMessage);
             log.info("Запрос выполнен " + receivedMessage.getMessage().toString());
-            messageEventPublisher.publishHandledMessage(
-                    new HandledMessage<>(incomingMessage.getMessage(), receivedMessage.getMessage()));
+            messageEventPublisher.publishProcessedMessage(
+                    new ProcessedMessage<>(incomingMessage.getMessage(), receivedMessage.getMessage()));
         } catch (TimeoutException exception) {
             log.error(exception.getMessage());
             messageSchedulerService.addMessageInQueue(incomingMessage);

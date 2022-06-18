@@ -2,6 +2,7 @@ package com.ivanov.skblabform.user;
 
 import com.ivanov.skblabform.dao.User;
 import com.ivanov.skblabform.dao.UserRepository;
+import com.ivanov.skblabform.exception.UserExistsException;
 import com.ivanov.skblabform.messaging.Message;
 import com.ivanov.skblabform.messaging.event.MessageEventPublisher;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ public class UserService {
 
     public void verificationUser(UserDto userDto) {
         if (userRepository.findFirstUserByEmailOrLogin(userDto.getEmail(), userDto.getLogin()).isPresent()) {
-            throw new IllegalArgumentException(); //заменить ошибку
+            throw new UserExistsException("User exists!"); //заменить ошибку
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         messageEventPublisher.publishMessagingEvent(new Message<>(userDto));

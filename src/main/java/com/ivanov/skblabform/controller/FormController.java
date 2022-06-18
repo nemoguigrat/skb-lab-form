@@ -20,14 +20,14 @@ public class FormController {
 
     @GetMapping("/register")
     public String registrationForm(Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("userDto", userDto);
+        model.addAttribute("userDto", new UserDto());
         return "registration";
     }
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute UserDto userDto, Model model) {
         log.error(userDto.toString());
+        model.addAttribute("userDto", new UserDto());
         userService.verificationUser(userDto);
         return "redirect:/register";
     }

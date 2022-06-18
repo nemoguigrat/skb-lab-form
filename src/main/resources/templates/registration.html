@@ -15,5 +15,8 @@
         <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
         <input type="submit" value="Отправить">
     </form>
+
+    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+    <p th:text="${message}"/>
 </body>
 </html>
