@@ -7,7 +7,6 @@ import com.ivanov.skblabform.messaging.event.HandledMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,15 +17,19 @@ public class UserEventListener {
 
     @EventListener
     public Email handleUserRegistration(HandledMessage<UserDto, VerificationStatus> handledMessage) {
+        log.info(Thread.currentThread().toString());
         log.info("handle user registration");
-        VerificationStatus verificationStatus = handledMessage.getOut();
-        UserDto userDto = handledMessage.getIn();
-        if (verificationStatus == VerificationStatus.VERIFIED) {
-            User user = userService.saveUser(userDto);
-            log.info("user saved!" + user);
-            return new Email(userDto.getEmail(), "Ваша заявка успешно принята!");
+        VerificationStatus verificationStatus = handledMessage.getReceivedMessage();
+        UserDto userDto = handledMessage.getIncomingMessage();
+        if (verificationStatus.equals(VerificationStatus.VERIFIED)) {
+            try {
+                User user = userService.saveUser(userDto);
+                log.info("user saved!" + user);
+            } catch (Exception exception) {
+                log.error(exception.getMessage());
+                return new Email(userDto.getEmail(), VerificationStatus.SAVED.getDescription());
+            }
         }
-        log.error("user verification failed");
-        return new Email(userDto.getEmail(), "Заяка на регистрацию отклонена!");
+        return new Email(userDto.getEmail(), verificationStatus.getDescription());
     }
 }

@@ -1,6 +1,8 @@
-package com.ivanov.skblabform.messaging;
+package com.ivanov.skblabform.messaging.service;
 
 import com.ivanov.skblabform.dao.VerificationStatus;
+import com.ivanov.skblabform.messaging.Message;
+import com.ivanov.skblabform.messaging.MessageId;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

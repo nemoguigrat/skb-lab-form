@@ -1,7 +1,8 @@
 package com.ivanov.skblabform.messaging.event;
 
 import com.ivanov.skblabform.messaging.Message;
-import com.ivanov.skblabform.messaging.MessagingService;
+import com.ivanov.skblabform.messaging.service.MessageSchedulerService;
+import com.ivanov.skblabform.messaging.service.MessagingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -17,23 +18,22 @@ import java.util.concurrent.TimeoutException;
 public class MessageListenerImpl<T> implements MessageListener<T> {
     private final MessageEventPublisher messageEventPublisher;
     private final MessagingService messagingService;
-    private final ConcurrentLinkedQueue<Message<T>> notSendingMessages = new ConcurrentLinkedQueue<>();
+    private final MessageSchedulerService<T> messageSchedulerService;
 
     @Override
     @EventListener
     @Async
     public <A> void handleMessage(Message<T> incomingMessage) {
-        log.error("Событие полученно   " + incomingMessage.getMessage().toString());
+        log.info(Thread.currentThread().toString());
+        log.info("Событие полученно   " + incomingMessage.getMessage().toString());
         try {
-            // будем предполагать, что внешняя шина умеет только валидировать
-            // данные и возращает статус в случае когда мы отпраляем объект пользователя
             Message<A> receivedMessage = messagingService.doRequest(incomingMessage);
-            log.error("Запрос выполнен " + receivedMessage.getMessage().toString());
+            log.info("Запрос выполнен " + receivedMessage.getMessage().toString());
             messageEventPublisher.publishHandledMessage(
                     new HandledMessage<>(incomingMessage.getMessage(), receivedMessage.getMessage()));
         } catch (TimeoutException exception) {
             log.error(exception.getMessage());
-            notSendingMessages.add(incomingMessage);
+            messageSchedulerService.addMessageInQueue(incomingMessage);
         }
     }
 }

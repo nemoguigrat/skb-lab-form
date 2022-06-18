@@ -4,31 +4,31 @@ import org.springframework.core.ResolvableType;
 import org.springframework.core.ResolvableTypeProvider;
 
 public class HandledMessage<IN, OUT> implements ResolvableTypeProvider {
-    private IN in;
-    private OUT out;
+    private final IN incomingMessage;
+    private final OUT receivedMessage;
 
-    public HandledMessage(IN in, OUT out) {
-        this.in = in;
-        this.out = out;
+    public HandledMessage(IN incomingMessage, OUT receivedMessage) {
+        this.incomingMessage = incomingMessage;
+        this.receivedMessage = receivedMessage;
     }
 
-    public IN getIn() {
-        return in;
+    public IN getIncomingMessage() {
+        return incomingMessage;
     }
 
-    public OUT getOut() {
-        return out;
+    public OUT getReceivedMessage() {
+        return receivedMessage;
     }
 
     @Override
     public ResolvableType getResolvableType() {
         return ResolvableType.forClassWithGenerics(getClass(),
-                ResolvableType.forInstance(in),
-                ResolvableType.forInstance(out));
+                ResolvableType.forInstance(incomingMessage),
+                ResolvableType.forInstance(receivedMessage));
     }
 
     @Override
     public String toString() {
-        return "[MessageData " + this.in.toString() + " " + this.out.toString() + "]";
+        return "[MessageData " + this.incomingMessage.toString() + " " + this.receivedMessage.toString() + "]";
     }
 }
