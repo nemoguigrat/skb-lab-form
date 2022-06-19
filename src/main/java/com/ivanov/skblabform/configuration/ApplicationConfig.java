@@ -1,5 +1,8 @@
-package com.ivanov.skblabform;
+package com.ivanov.skblabform.configuration;
 
+import com.ivanov.skblabform.messaging.event.MessageEventPublisher;
+import com.ivanov.skblabform.messaging.service.MessagingService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -14,7 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableAsync
 @EnableScheduling
-public class SecurityConfiguration {
+@AllArgsConstructor
+public class ApplicationConfig {
+    private final MessageEventPublisher messageEventPublisher;
+    private final MessagingService messagingService;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/**").permitAll();
@@ -25,6 +31,4 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
-
-
 }

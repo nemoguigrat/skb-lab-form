@@ -18,7 +18,7 @@ public class UserService {
 
     public void verificationUser(UserDto userDto) {
         if (userRepository.findFirstUserByEmailOrLogin(userDto.getEmail(), userDto.getLogin()).isPresent()) {
-            throw new UserExistsException("User exists!"); //заменить ошибку
+            throw new UserExistsException("User exists!");
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         messageEventPublisher.publishMessagingEvent(new Message<>(userDto));

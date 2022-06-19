@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@Service
 @Slf4j
 @AllArgsConstructor
-public class MessageSchedulerService<T> {
+@Service
+public class MessageScheduler {
     private final MessageEventPublisher messageEventPublisher;
-    private final ConcurrentLinkedQueue<Message<T>> notSendingMessages = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<Message<?>> notSendingMessages = new ConcurrentLinkedQueue<>();
 
-    public void addMessageInQueue(Message<T> incomingMessage) {
+    public void addMessageInQueue(Message<?> incomingMessage) {
         this.notSendingMessages.add(incomingMessage);
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelay = 2000L)
+    @Scheduled(fixedDelay = 3000L)
     public void resendMessages() {
         log.info("trying to resend messages = " + notSendingMessages.size());
         while (!notSendingMessages.isEmpty()) {

@@ -1,6 +1,7 @@
 package com.ivanov.skblabform.messaging.event;
 
 import com.ivanov.skblabform.messaging.Message;
+import com.ivanov.skblabform.messaging.ProcessedMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

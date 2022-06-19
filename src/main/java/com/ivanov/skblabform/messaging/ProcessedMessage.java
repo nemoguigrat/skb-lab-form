@@ -1,4 +1,4 @@
-package com.ivanov.skblabform.messaging.event;
+package com.ivanov.skblabform.messaging;
 
 import org.springframework.core.ResolvableType;
 import org.springframework.core.ResolvableTypeProvider;
@@ -23,8 +23,8 @@ public class ProcessedMessage<IN, OUT> implements ResolvableTypeProvider {
     @Override
     public ResolvableType getResolvableType() {
         return ResolvableType.forClassWithGenerics(getClass(),
-                ResolvableType.forInstance(incomingMessage),
-                ResolvableType.forInstance(receivedMessage));
+                ResolvableType.forInstance(this.incomingMessage),
+                ResolvableType.forInstance(this.receivedMessage));
     }
 
     @Override

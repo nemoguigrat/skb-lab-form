@@ -3,7 +3,7 @@ package com.ivanov.skblabform.user;
 import com.ivanov.skblabform.dao.User;
 import com.ivanov.skblabform.dao.VerificationStatus;
 import com.ivanov.skblabform.mail.Email;
-import com.ivanov.skblabform.messaging.event.ProcessedMessage;
+import com.ivanov.skblabform.messaging.ProcessedMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -17,7 +17,6 @@ public class UserEventListener {
 
     @EventListener
     public Email handleUserRegistration(ProcessedMessage<UserDto, VerificationStatus> processedMessage) {
-        log.info(Thread.currentThread().toString());
         log.info("handle user registration");
         VerificationStatus verificationStatus = processedMessage.getReceivedMessage();
         UserDto userDto = processedMessage.getIncomingMessage();
