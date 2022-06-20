@@ -1,4 +1,4 @@
-package com.ivanov.skblabform.mail;
+package com.ivanov.skblabform.mail.service;
 
 import java.util.concurrent.TimeoutException;
 

@@ -20,7 +20,7 @@ public class UserEventListener {
         log.info("handle user registration");
         VerificationStatus verificationStatus = processedMessage.getReceivedMessage();
         UserDto userDto = processedMessage.getIncomingMessage();
-        if (verificationStatus.equals(VerificationStatus.VERIFIED)) {
+        if (verificationStatus == VerificationStatus.VERIFIED) {
             try {
                 User user = userService.saveUser(userDto);
                 log.info("user saved!" + user);
