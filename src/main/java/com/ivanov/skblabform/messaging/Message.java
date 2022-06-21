@@ -24,7 +24,6 @@ public class Message<T> implements ResolvableTypeProvider {
 
     @Override
     public ResolvableType getResolvableType() {
-        return ResolvableType.forClassWithGenerics(getClass(),
-                ResolvableType.forInstance(this.message));
+        return ResolvableType.forClassWithGenerics(this.getClass(), ResolvableType.forInstance(this.message));
     }
 }

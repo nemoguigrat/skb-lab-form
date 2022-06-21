@@ -14,7 +14,6 @@ import java.util.concurrent.TimeoutException;
 @Service
 @Slf4j
 public class MessagingServiceStub implements MessagingService {
-
     @Override
     public <T> MessageId send(Message<T> msg) {
         return msg.getMessageId();
@@ -22,12 +21,12 @@ public class MessagingServiceStub implements MessagingService {
 
     @Override
     public <T> Message<T> receive(MessageId messageId) throws TimeoutException {
-        if(shouldThrowTimeout()) {
+        if (shouldThrowTimeout()) {
             log.error("Should timeout!!!!!");
             sleep();
             throw new TimeoutException("Timeout!");
         }
-        if(shouldSleep()) {
+        if (shouldSleep()) {
             sleep();
         }
         if (shouldReject()) {

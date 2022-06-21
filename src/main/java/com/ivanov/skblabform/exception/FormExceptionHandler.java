@@ -19,7 +19,6 @@ public class FormExceptionHandler {
         return "registration";
     }
 
-
     @ExceptionHandler(BindException.class)
     public String handleRestValidationException(BindException ex, Model model) {
         model.addAttribute("userDto", new UserDto());

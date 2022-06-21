@@ -1,7 +1,6 @@
 package com.ivanov.skblabform.integration;
 
 import com.ivanov.skblabform.dao.VerificationStatus;
-import com.ivanov.skblabform.mail.Email;
 import com.ivanov.skblabform.messaging.Message;
 import com.ivanov.skblabform.messaging.ProcessedMessage;
 import com.ivanov.skblabform.messaging.event.MessageListener;
@@ -17,12 +16,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.PayloadApplicationEvent;
 
 @SpringBootTest
 public class ProcessedMessageEventIntegrationTest {
     @Autowired
-    private MessageListener<Object> messageListener;
+    private MessageListener messageListener;
 
     @MockBean
     private UserEventListener userEventListener;
@@ -54,7 +52,7 @@ public class ProcessedMessageEventIntegrationTest {
     public void userEventListener_NOT_CALLED_WHEN_STRING() {
         Mockito.when(messagingService.doRequest(Mockito.any(Message.class)))
                 .thenReturn(new Message<>(VerificationStatus.VERIFIED));
-        Message<Object> message = new Message<>("test string");
+        Message<String> message = new Message<>("test string");
         messageListener.handleMessage(message);
         Mockito.verify(userEventListener, Mockito.timeout(500).times(0))
                 .handleUserRegistration(Mockito.any(ProcessedMessage.class));

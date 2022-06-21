@@ -50,7 +50,7 @@ public class FormControllerIntegrationTest {
     private UserRepository userRepository;
 
     @Test
-    public void formControllerTest_WHEN_NO_EXCEPTION() throws Exception {
+    public void formControllerTest_WHEN_NO_EXCEPTIONS() throws Exception {
         Mockito.when(messagingService.doRequest(Mockito.any(Message.class))).thenReturn(new Message(VerificationStatus.VERIFIED));
         Mockito.doNothing().when(sendMailerStub).sendMail(Mockito.anyString(), Mockito.anyString());
         Mockito.when(userRepository.findFirstUserByEmailOrLogin(Mockito.anyString(), Mockito.anyString())).thenReturn(Optional.empty());

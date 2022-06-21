@@ -16,14 +16,11 @@ public class SendMailerStub implements SendMailer {
     public void sendMail(String receiver, String message) throws TimeoutException {
         if(shouldThrowTimeout()) {
             sleep();
-
             throw new TimeoutException("Timeout!");
         }
-
         if(shouldSleep()) {
             sleep();
         }
-
         // ok.
         log.info("Message sent to {}, body {}.", receiver, message);
     }

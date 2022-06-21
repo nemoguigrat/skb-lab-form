@@ -15,8 +15,8 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 public class EmailEventListener {
     private final SendMailerStub sendMailerStub;
-
     private final EmailScheduler emailScheduler;
+
     @Async
     @EventListener
     public void handleEmailSending(Email email) {
