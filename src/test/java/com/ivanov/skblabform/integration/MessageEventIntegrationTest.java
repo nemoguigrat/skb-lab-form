@@ -3,6 +3,7 @@ package com.ivanov.skblabform.integration;
 import com.ivanov.skblabform.dao.VerificationStatus;
 import com.ivanov.skblabform.messaging.Message;
 import com.ivanov.skblabform.messaging.event.MessageEventPublisher;
+import com.ivanov.skblabform.messaging.service.MessageScheduler;
 import com.ivanov.skblabform.messaging.service.MessagingService;
 import com.ivanov.skblabform.user.UserDto;
 import lombok.SneakyThrows;
@@ -11,6 +12,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+
+import java.util.concurrent.TimeoutException;
 
 @SpringBootTest
 public class MessageEventIntegrationTest {
@@ -19,6 +23,9 @@ public class MessageEventIntegrationTest {
 
     @MockBean
     private MessagingService messagingService;
+
+    @SpyBean
+    private MessageScheduler messageScheduler;
 
     @Test
     @SneakyThrows

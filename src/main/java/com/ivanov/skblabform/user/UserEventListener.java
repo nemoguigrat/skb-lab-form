@@ -25,6 +25,8 @@ public class UserEventListener {
                 User user = userService.saveUser(userDto);
                 log.info("user saved!" + user);
             } catch (Exception exception) {
+                // если, пока происходило ассинхронное выполнение, для одного из пользователей сохранение произошло раньше,
+                // та выбросится ошибка, тогда ничего не поделать и нужно будет об этом уведомить пользователя на почте.
                 log.error(exception.getMessage());
                 return new Email(userDto.getEmail(), VerificationStatus.SAVED.getDescription());
             }

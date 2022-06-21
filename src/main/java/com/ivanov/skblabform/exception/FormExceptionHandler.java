@@ -24,6 +24,7 @@ public class FormExceptionHandler {
         model.addAttribute("userDto", new UserDto());
         model.addAttribute("exceptions", ex.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
+        // если какие-то проблемы с валидацией, то очищаем полностью форму и говорим, какие поля были заполнены не верно.
         return "registration";
     }
 }

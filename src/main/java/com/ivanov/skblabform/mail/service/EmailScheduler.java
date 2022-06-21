@@ -24,7 +24,7 @@ public class EmailScheduler {
     @SneakyThrows
     @Scheduled(fixedDelay = 3000L)
     public void resendEmails() {
-        log.info("trying to resend messages = " + notSendingEmails.size());
+        log.info("trying to resend emails = " + notSendingEmails.size());
         while (!notSendingEmails.isEmpty()) {
             applicationEventPublisher.publishEvent(notSendingEmails.remove());
         }

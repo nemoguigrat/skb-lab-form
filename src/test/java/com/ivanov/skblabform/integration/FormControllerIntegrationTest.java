@@ -66,7 +66,7 @@ public class FormControllerIntegrationTest {
                 .andExpect(model().attribute("message", VerificationStatus.PROCESSING.getDescription()))
                 .andDo(MockMvcResultHandlers.print());
         Mockito.verify(messagingService).doRequest(Mockito.any(Message.class));
-        Mockito.verify(sendMailerStub).sendMail(Mockito.anyString(), Mockito.anyString());
+        Mockito.verify(sendMailerStub, Mockito.timeout(200).times(1)).sendMail(Mockito.anyString(), Mockito.anyString());
     }
 
     @Test

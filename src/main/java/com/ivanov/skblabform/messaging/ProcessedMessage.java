@@ -22,6 +22,7 @@ public class ProcessedMessage<IN, OUT> implements ResolvableTypeProvider {
 
     @Override
     public ResolvableType getResolvableType() {
+        // определяет, какие типы содержит сообщение, для того, чтобы в дальшейшем вызвать нужный обработчик.
         return ResolvableType.forClassWithGenerics(getClass(),
                 ResolvableType.forInstance(this.incomingMessage),
                 ResolvableType.forInstance(this.receivedMessage));

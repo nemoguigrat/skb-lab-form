@@ -24,8 +24,10 @@ public class MessageScheduler {
     @SneakyThrows
     @Scheduled(fixedDelay = 3000L)
     public void resendMessages() {
+        // джобы в отдельных сервисах, это упрощает тестирование.
         log.info("trying to resend messages = " + notSendingMessages.size());
         while (!notSendingMessages.isEmpty()) {
+            // просто переопубликует ивент с сообщением, так цепочка вызовов сохраняется и все обрабатывается
             messageEventPublisher.publishMessagingEvent(notSendingMessages.remove());
         }
     }

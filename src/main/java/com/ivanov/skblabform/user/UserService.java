@@ -17,10 +17,13 @@ public class UserService {
     private final MessageEventPublisher messageEventPublisher;
 
     public void verificationUser(UserDto userDto) {
+        // в случае, если это новый юзер, то все нормально и мы говорим, что его заяка обрабатывается,
+        // если такой пользователь уже в системе, то выскочит ошибка, которую перехватит обработчик и скажет, что пользователь уже существует
         if (userRepository.findFirstUserByEmailOrLogin(userDto.getEmail(), userDto.getLogin()).isPresent()) {
             throw new UserExistsException("User exists!");
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        //публикуется ивент, вся последующая цепочка выполняется ассинхронно.
         messageEventPublisher.publishMessagingEvent(new Message<>(userDto));
     }
 
