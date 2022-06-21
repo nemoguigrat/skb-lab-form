@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <title>Welcome</title>
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
 </head>
 <body>
-<!--/*@thymesVar id="userDto" type="com.ivanov.skblabform.user.UserDto"*/-->
+    <!--/*@thymesVar id="userDto" type="com.ivanov.skblabform.user.UserDto"*/-->
     <form action="#" th:action="@{/register}" th:object="${userDto}" method="post">
         <label>Логин <input type="text" th:field="*{login}" /></label>
         <label>Пароль <input type="password" th:field="*{password}"></label>
         <label>Почта <input type="email" th:field="*{email}"></label>
         <label>ФИО <input type="text" th:field="*{name}"></label>
-        <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <input type="submit" value="Отправить">
     </form>
 
     <!--/*@thymesVar id="message" type="java.lang.String"*/-->
     <p th:text="${message}"/>
+
+    <!--/*@thymesVar id="exceptions" type="java.util.List"*/-->
+    <div>
+        <p th:each="ex : ${exceptions}" th:text="${ex}"></p>
+    </div>
 </body>
 </html>

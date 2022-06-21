@@ -7,10 +7,13 @@ import com.ivanov.skblabform.mail.service.SendMailerStub;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.TimeoutException;
 
+@ExtendWith(MockitoExtension.class)
 public class EmailEventListenerTest {
     @InjectMocks
     private EmailEventListener emailEventListener;
@@ -19,11 +22,6 @@ public class EmailEventListenerTest {
     private EmailScheduler emailScheduler;
     @Mock
     private SendMailerStub sendMailerStub;
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     @SneakyThrows

@@ -9,13 +9,16 @@ import com.ivanov.skblabform.user.UserDto;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.TimeoutException;
 
+@ExtendWith(MockitoExtension.class)
 public class MessageListenerExceptionTest {
     @InjectMocks
     private MessageListenerImpl messageListener;
@@ -25,14 +28,6 @@ public class MessageListenerExceptionTest {
 
     @Mock
     private MessageScheduler messageScheduler;
-
-    @Mock
-    private MessageEventPublisher messageEventPublisher;
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     @SneakyThrows

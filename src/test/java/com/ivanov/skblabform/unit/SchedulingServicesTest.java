@@ -26,7 +26,7 @@ public class SchedulingServicesTest {
     private MessageScheduler messageScheduler;
 
     @Test
-    public void test() {
+    public void emailSchedulerTest() {
         Email email = new Email("test", "test");
         for (int i = 0; i < 15; i++) {
             emailScheduler.addEmailInQueue(email);
@@ -36,7 +36,7 @@ public class SchedulingServicesTest {
     }
 
     @Test
-    public void test1() {
+    public void messageSchedulerTest() {
         Message<Object> message = new Message<>("test");
         for (int i = 0; i < 15; i++) {
             messageScheduler.addMessageInQueue(message);

@@ -11,22 +11,20 @@ import org.h2.jdbc.JdbcSQLDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class UserEventListenerTest {
     @InjectMocks
     private UserEventListener userEventListener;
 
     @Mock
     private UserService userService;
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     public void userEventListener_VERIFICATION_STATUS_DESCRIPTION() {

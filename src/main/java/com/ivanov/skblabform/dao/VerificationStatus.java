@@ -5,7 +5,8 @@ import java.io.Serializable;
 public enum VerificationStatus implements Serializable {
     SAVED("Данные уже в системе. Отказ."),
     VERIFIED("Верификация успешна! Данные сохранены."),
-    REJECTED("Верификация не пройдена. Можете попробовать снова.");
+    REJECTED("Верификация не пройдена. Можете попробовать снова."),
+    PROCESSING("Ваша заявка принята, идет верификация.");
 
     private final String description;
 

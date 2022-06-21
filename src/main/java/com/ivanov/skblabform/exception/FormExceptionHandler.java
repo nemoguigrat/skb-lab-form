@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -14,7 +15,7 @@ public class FormExceptionHandler {
     @ExceptionHandler(UserExistsException.class)
     public String handleUserExistsException(UserExistsException ex, Model model) {
         model.addAttribute("userDto", new UserDto());
-        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("exceptions", List.of(ex.getMessage()));
         return "registration";
     }
 
@@ -22,7 +23,7 @@ public class FormExceptionHandler {
     @ExceptionHandler(BindException.class)
     public String handleRestValidationException(BindException ex, Model model) {
         model.addAttribute("userDto", new UserDto());
-        model.addAttribute("message", ex.getBindingResult().getAllErrors().stream()
+        model.addAttribute("exceptions", ex.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList()));
         return "registration";
     }

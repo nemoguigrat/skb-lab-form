@@ -59,4 +59,17 @@ public class ProcessedMessageEventIntegrationTest {
         Mockito.verify(userEventListener, Mockito.timeout(500).times(0))
                 .handleUserRegistration(Mockito.any(ProcessedMessage.class));
     }
+
+    @Test
+    @SneakyThrows
+    public void userEventListener_NOT_CALLED_WHEN_NOT_STATUS() {
+        Mockito.when(messagingService.doRequest(Mockito.any(Message.class)))
+                .thenReturn(new Message<>("some string"));
+        UserDto userDto = new UserDto();
+        userDto.setName("test name");
+        userDto.setEmail("email@email.com");
+        messageListener.handleMessage(new Message<>(userDto));
+        Mockito.verify(userEventListener, Mockito.timeout(500).times(0))
+                .handleUserRegistration(Mockito.any(ProcessedMessage.class));
+    }
 }
